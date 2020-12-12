@@ -1,0 +1,167 @@
+.segment-font {
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+    -fx-font-size: 30;
+    -fx-text-fill: green;
+}
+
+.background-img {
+    /*-fx-background-color: black;*/
+    -fx-background-image: url("imgs/background.jpg");;
+    -fx-background-position: center center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+}
+
+.background-black {
+    -fx-background-color: black;
+}
+
+.separator {
+    -fx-border-style: solid;
+    -fx-border-width: 0 0 1 0; /* its make really one-pixel-border */
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#9a9b9b, #32323c);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+    -fx-background-radius: 5em;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-width: 40px;
+    -fx-max-height: 40px;
+    -fx-border-radius: 5em;
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(#949fa4, #6a7579);
+}
+
+.text-yellow {
+    -fx-text-fill: #ffff00;
+}
+
+.text-white {
+    -fx-text-fill: white;
+    -fx-font-size: 20;
+}
+
+.indor-font {
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+    -fx-font-size: 70;
+    -fx-text-fill: #ffff00;
+}
+
+.indor-font-medium {
+    /*-fx-font-family: "DSEG14 Classic Mini-Bold";*/
+    -fx-font-size: 30;
+    -fx-text-fill: #ffff00;
+}
+
+.indor-font-small {
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+    -fx-font-size: 20;
+    -fx-text-fill: #ffff00;
+}
+
+.text-blue {
+    -fx-text-fill: #246785;
+}
+
+.outdoor-font {
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+    -fx-font-size: 70;
+    -fx-text-fill: #246785;
+}
+
+.outdoor-font-medium {
+    /*-fx-font-family: "DSEG14 Classic Mini-Bold";*/
+    -fx-font-size: 30;
+    -fx-text-fill: #246785;
+}
+
+.outdoor-font-small {
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+    -fx-font-size: 20;
+    -fx-text-fill: #246785;
+}
+
+.text-green {
+    -fx-text-fill: #1D7521;
+}
+
+.text-time {
+    -fx-text-fill: #1D7521;
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+}
+
+.wind-font {
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+    -fx-font-size: 60;
+    -fx-text-fill: #1D7521;
+}
+
+.wind-font-medium {
+    -fx-font-size: 30;
+    -fx-text-fill: #1D7521;
+}
+
+.wind-font-small {
+    /*-fx-font-family: "DSEG14 Classic Mini-Bold";*/
+    -fx-font-size: 20;
+    -fx-text-fill: #1D7521;
+}
+
+.chart-plot-background {
+    -fx-background-color: black;
+}
+
+.axis {
+    -fx-font-size: 1.4em;
+    -fx-tick-label-fill: #ffffff;
+    -fx-font-family: Tahoma;
+}
+
+.axis-label {
+    -fx-text-fill: #ffffff;
+}
+
+.axis-tick-mark {
+    -fx-stroke: #ffffff;
+    /*-fx-stroke-width: 3;*/
+}
+
+.axis-minor-tick-mark {
+    -fx-stroke: #ffffff;
+}
+
+.chart-title {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 1.6em;
+}
+
+.data0.chart-bar {
+    -fx-background-color: white;
+}
+
+.data1.chart-bar {
+    -fx-background-color: white;
+}
+
+.data2.chart-bar {
+    -fx-background-color: white;
+}
+
+.data3.chart-bar {
+    -fx-background-color: white;
+}
+
+.data4.chart-bar {
+    -fx-background-color: white;
+}
+
+.data5.chart-bar {
+    -fx-background-color: white;
+}

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="background-img" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.StationMainPaneController">
+    <children>
+        <HBox alignment="CENTER" layoutX="118.0" layoutY="390.0" prefHeight="50.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Button mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imgs/icons8_settings_512px.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+                <Button mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imgs/icons8_retro_alarm_clock_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+                <Button mnemonicParsing="false">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@imgs/icons8_home_96px.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            </children>
+        </HBox>
+        <HBox alignment="CENTER" layoutX="320.0" layoutY="197.0" prefHeight="570.0" styleClass="background-black" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="570.0" spacing="5.0">
+                    <children>
+                        <Label styleClass="outdoor-font-medium" text="Outdoor Temp" />
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label fx:id="outdoorTempLabel" styleClass="outdoor-font" text="26.6" />
+                                <VBox alignment="CENTER">
+                                    <children>
+                                        <Label styleClass="text-blue" text="°C">
+                                            <font>
+                                                <Font size="30.0" />
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons8_thermometer_64px_1.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <Label styleClass="outdoor-font-medium" text="Humidity" />
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label fx:id="outdoorHumidityLabel" styleClass="outdoor-font" text="26.6" />
+                                <Label styleClass="text-blue" text="\%">
+                                    <font>
+                                        <Font size="70.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Separator minWidth="270.0">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Separator>
+                        <Label styleClass="wind-font-medium" text="Wind Speed" />
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label fx:id="windSpeedLabel" styleClass="wind-font" text="16.4" />
+                                <Label styleClass="text-green" text=" km/h">
+                                    <font>
+                                        <Font size="40.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Label styleClass="wind-font-medium" text="Rain Fall Accululation" />
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label fx:id="rainFallAccLabel" styleClass="wind-font" text="1.28" />
+                                <VBox alignment="CENTER">
+                                    <children>
+                                        <Label styleClass="text-green" text="Last Hour">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </Label>
+                                        <Label styleClass="text-green" text="mm inches">
+                                            <font>
+                                                <Font size="20.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </VBox>
+                <SplitPane maxWidth="1.0" orientation="VERTICAL" prefHeight="570.0">
+                    <opaqueInsets>
+                        <Insets />
+                    </opaqueInsets>
+                    <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </HBox.margin>
+                </SplitPane>
+                <VBox alignment="TOP_CENTER" minWidth="350.0" prefHeight="570.0">
+               <children>
+                  <BarChart fx:id="presureTrendChart" horizontalGridLinesVisible="false" prefHeight="164.0" prefWidth="350.0" styleClass="chart" title="Pressure Trend [hPa]" verticalGridLinesVisible="false">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
+                  <HBox fx:id="midHBbox" prefHeight="175.0">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="175.0" prefWidth="131.0">
+                           <children>
+                              <Label styleClass="text-white" text="Weather" />
+                              <ImageView fx:id="weatherIcon" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imgs/weather/icons8_storm_160px_1.png" />
+                                 </image>
+                              </ImageView>
+                              <Label styleClass="text-white" text="Moon" />
+                              <ImageView fx:id="moonIcon" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@imgs/moon/icons8_new_moon_96px.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children></VBox>
+                <SplitPane maxWidth="1.0" orientation="VERTICAL" prefHeight="570.0">
+                    <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </HBox.margin>
+                </SplitPane>
+                <VBox alignment="CENTER" minWidth="270.0" prefHeight="570.0" spacing="5.0">
+                    <children>
+                        <Label styleClass="indor-font-medium" text="Indoor Temp" />
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label fx:id="indoorTempLabel" styleClass="indor-font" text="26.6" />
+                                <VBox alignment="CENTER">
+                                    <children>
+                                        <Label styleClass="text-yellow" text="°C">
+                                            <font>
+                                                <Font size="30.0" />
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@imgs/icons8_thermometer_64px.png" />
+                                            </image>
+                                        </ImageView>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                        <Label styleClass="indor-font-medium" text="Humidity" />
+                        <HBox alignment="CENTER">
+                            <children>
+                                <Label fx:id="indoorHumidityLabel" styleClass="indor-font" text="26.6" />
+                                <Label styleClass="text-yellow" text="\%">
+                                    <font>
+                                        <Font size="70.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <Separator prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets left="10.0" right="10.0" />
+                            </VBox.margin>
+                        </Separator>
+                        <VBox alignment="CENTER" prefHeight="230.0" spacing="30.0">
+                            <children>
+                                <HBox alignment="BOTTOM_CENTER" spacing="5.0">
+                                    <children>
+                                        <Label fx:id="hoursMinutesLabel" styleClass="text-time" text="12:34">
+                                            <font>
+                                                <Font size="60.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                        </Label>
+                                        <VBox alignment="BOTTOM_CENTER">
+                                            <children>
+                                                <Label fx:id="secondsLabel" styleClass="text-time" text="56">
+                                                    <font>
+                                                        <Font size="30.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="10.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER">
+                                    <children>
+                                        <HBox>
+                                            <children>
+                                                <Label fx:id="dayLabel" styleClass="text-time" text="7">
+                                                    <font>
+                                                        <Font size="45.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label styleClass="text-green" text="D">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <HBox>
+                                            <children>
+                                                <Label fx:id="monthLabel" styleClass="text-time" text="8">
+                                                    <font>
+                                                        <Font size="45.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label styleClass="text-green" text="M">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        <Label fx:id="dayWeekLabel" styleClass="text-time" text="THU">
+                                            <font>
+                                                <Font size="50.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children></VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
