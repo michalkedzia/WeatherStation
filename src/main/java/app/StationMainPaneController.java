@@ -149,6 +149,46 @@ public class StationMainPaneController {
           stage.setScene(scene);
           stage.show();
         });
+
+      ExecutorService executorService = Executors.newFixedThreadPool(2);
+    Runnable runnable =
+        () -> {
+          while (executors) {
+            try {
+              Thread.sleep(1000);
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+
+            double wnd = Double.parseDouble(windSpeedLabel.getText());
+            if (AlarmSettings.isAlarmActive) {
+              if (wnd >= AlarmSettings.windSpeedAlarm) {
+                AlarmSettings.play();
+              } else AlarmSettings.stop();
+            }
+          }
+        };
+
+    executorService.execute(runnable);
+
+    alarmButton.setOnAction(
+        actionEvent -> {
+          Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+          AnchorPane root = null;
+          try {
+            root = FXMLLoader.load(getClass().getResource("/alarmPane.fxml"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          Scene scene = new Scene(root, 1000, 700);
+          executors = false;
+          scene
+              .getStylesheets()
+              .add(getClass().getResource("/custom-font-styles.css").toExternalForm());
+          stage.setScene(scene);
+          stage.show();
+        });
+
   }
 
   void changeIcon(ImageView imageView, String src) {
