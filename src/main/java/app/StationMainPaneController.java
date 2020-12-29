@@ -9,14 +9,22 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -57,6 +65,8 @@ public class StationMainPaneController {
 
   @FXML private Label dayWeekLabel;
 
+  @FXML private Button alarmButton;
+
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
 
@@ -95,6 +105,23 @@ public class StationMainPaneController {
 
     initializeTimeDate();
     initializeChart();
+    alarmButton.setOnAction(
+        actionEvent -> {
+          Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+          AnchorPane root = null;
+          try {
+            root = FXMLLoader.load(getClass().getResource("/alarmPane.fxml"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          Scene scene = new Scene(root, 1000, 700);
+
+          scene
+              .getStylesheets()
+              .add(getClass().getResource("/custom-font-styles.css").toExternalForm());
+          stage.setScene(scene);
+          stage.show();
+        });
   }
 
   void changeIcon(ImageView imageView, String src) {

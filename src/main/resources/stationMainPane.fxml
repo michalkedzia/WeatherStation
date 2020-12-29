@@ -27,7 +27,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-                <Button mnemonicParsing="false">
+                <Button fx:id="alarmButton" mnemonicParsing="false">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
