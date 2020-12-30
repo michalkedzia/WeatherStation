@@ -22,6 +22,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -78,6 +79,9 @@ public class StationMainPaneController {
 
   @FXML private Label dayWeekLabel;
 
+  @FXML private Button alarmButton;
+
+  private MediaPlayer mediaPlayer;
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
 
@@ -170,6 +174,7 @@ public class StationMainPaneController {
         };
 
     executorService.execute(runnable);
+    if (AlarmSettings.isAlarmActive) {}
 
     alarmButton.setOnAction(
         actionEvent -> {
