@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="950.0" styleClass="background-img" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.AlarmController">
     <children>
@@ -39,13 +40,46 @@
                     </graphic></Button>
             </children>
         </HBox>
-        <HBox alignment="CENTER" layoutX="320.0" layoutY="197.0" prefHeight="570.0" styleClass="background-black" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+        <HBox alignment="CENTER" layoutX="24.0" layoutY="30.0" prefHeight="570.0" styleClass="background-black" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="30.0">
          <children>
             <VBox alignment="CENTER" prefHeight="570.0" prefWidth="162.0" spacing="10.0">
                <children>
-                  <Label text="Set wind speed alarm [km/h] :" textAlignment="CENTER" textFill="#ff0404" />
-                  <TextField />
-                  <Button mnemonicParsing="false" text="OK" />
+                  <VBox alignment="TOP_CENTER" prefHeight="130.0" prefWidth="162.0" spacing="5.0">
+                     <children>
+                        <Label text="Alarm status :" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="labelAlarmStatus" text="deactivated" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" spacing="10.0">
+                           <children>
+                              <Button fx:id="buttonON" mnemonicParsing="false" styleClass="btn" text="ON" />
+                              <Button fx:id="buttonOFF" mnemonicParsing="false" styleClass="btn" text="OFF" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="157.0" prefWidth="162.0" spacing="5.0">
+                     <children>
+                        <Label text="Set wind speed alarm [km/h] :" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="alarmTextField" />
+                        <Button fx:id="alarmButtonOK" mnemonicParsing="false" styleClass="btn" text="OK" />
+                        <Label fx:id="labelSetAlarm" textFill="#31bf0a">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                </children>
             </VBox>
          </children>
