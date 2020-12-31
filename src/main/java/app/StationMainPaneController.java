@@ -1,5 +1,7 @@
 package app;
 
+import app.api.ApiCaller;
+import app.api.data.WeatherData;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
 import javafx.animation.Animation;
@@ -17,6 +19,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -24,6 +30,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+
 
 public class StationMainPaneController {
 
@@ -60,6 +67,8 @@ public class StationMainPaneController {
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
 
+  WeatherData weatherData;
+
   public void initialize() {
 
     gauge =
@@ -95,6 +104,15 @@ public class StationMainPaneController {
 
     initializeTimeDate();
     initializeChart();
+
+    ApiCaller apiCaller = new ApiCaller();
+    try {
+      apiCaller.initialize();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    weatherData = apiCaller.getWeatherData(apiCaller.findCountry("moscow"));
   }
 
   void changeIcon(ImageView imageView, String src) {
@@ -150,22 +168,22 @@ public class StationMainPaneController {
                         secondsLabel.setText(s);
 
                         // test ->start
-                        gauge.setValue(gauge.getValue() + 5);
+                        gauge.setValue(weatherData.getWind().getDeg());
                         Random rand = new Random();
                         double random = rand.nextInt(5);
                         int rr = (int) random * 10;
                         random = random - 2 + random / 10;
 
-                        indoorTempLabel.setText(add(indoorTempLabel.getText(), random));
-                        indoorHumidityLabel.setText(add(indoorHumidityLabel.getText(), random));
-                        outdoorHumidityLabel.setText(add(outdoorHumidityLabel.getText(), random));
-                        outdoorTempLabel.setText(add(outdoorTempLabel.getText(), random));
-                        windSpeedLabel.setText(add(windSpeedLabel.getText(), random));
-                        rainFallAccLabel.setText(add(rainFallAccLabel.getText(), random));
+                        indoorTempLabel.setText(Integer.toString(20));
+                        indoorHumidityLabel.setText(Integer.toString(30));
+                        outdoorHumidityLabel.setText(Integer.toString(weatherData.getHumidity()));
+                        outdoorTempLabel.setText(Double.toString(weatherData.getTemp()));
+                        windSpeedLabel.setText(Double.toString(weatherData.getWind().getSpeed()));
+                        rainFallAccLabel.setText(Double.toString(weatherData.getRain().getHour()));
 
                         XYChart.Series<String, Double> aSeries =
                             new XYChart.Series<String, Double>();
-                        aSeries.getData().add(new XYChart.Data("Now", 1000 + rr));
+                        aSeries.getData().add(new XYChart.Data("Now", weatherData.getPressure()));
                         aSeries.getData().add(new XYChart.Data("+1 Hour", 1274 + rr));
                         aSeries.getData().add(new XYChart.Data("+2 Hour", 1151 + rr));
                         aSeries.getData().add(new XYChart.Data("+3 Hour", 1100 + rr));

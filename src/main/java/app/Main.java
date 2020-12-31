@@ -1,5 +1,6 @@
 package app;
 
+import app.api.ApiCaller;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import eu.hansolo.medusa.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
