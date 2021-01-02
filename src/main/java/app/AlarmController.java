@@ -50,17 +50,17 @@ public class AlarmController {
           stage.show();
         });
 
-    if(AlarmSettings.isAlarmActive){
-        labelSetAlarm.setText("Wind speed alarm: " + AlarmSettings.windSpeedAlarm + " km/h");
-        labelAlarmStatus.setText("activated");
+    if (AlarmSettings.isAlarmActive) {
+      labelSetAlarm.setText("Wind speed alarm: " + AlarmSettings.windSpeedAlarm + " km/h");
+      labelAlarmStatus.setText("activated");
     }
 
     buttonON.setOnAction(
         actionEvent -> {
-            if(!labelSetAlarm.getText().equals("")){
-                AlarmSettings.isAlarmActive = true;
-                labelAlarmStatus.setText("activated");
-            }
+          if (!labelSetAlarm.getText().equals("")) {
+            AlarmSettings.isAlarmActive = true;
+            labelAlarmStatus.setText("activated");
+          }
         });
 
     buttonOFF.setOnAction(
@@ -68,6 +68,7 @@ public class AlarmController {
           AlarmSettings.isAlarmActive = false;
           labelAlarmStatus.setText("deactivated");
           labelSetAlarm.setText("");
+          AlarmSettings.stop();
         });
 
     alarmButtonOK.setOnAction(
@@ -83,9 +84,5 @@ public class AlarmController {
             labelSetAlarm.setText("");
           }
         });
-
-    //    alarmButtonOK.setOnAction(actionEvent -> {
-    //        AlarmSettings.play();
-    //    });
   }
 }

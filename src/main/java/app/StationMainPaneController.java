@@ -38,6 +38,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class StationMainPaneController {
 
@@ -84,6 +86,7 @@ public class StationMainPaneController {
   private MediaPlayer mediaPlayer;
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
+  private boolean executors = true;
 
   private WeatherData weatherData;
 
@@ -155,6 +158,7 @@ public class StationMainPaneController {
         });
 
       ExecutorService executorService = Executors.newFixedThreadPool(2);
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
     Runnable runnable =
         () -> {
           while (executors) {
