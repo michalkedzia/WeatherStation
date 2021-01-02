@@ -33,6 +33,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class StationMainPaneController {
 
@@ -71,6 +73,7 @@ public class StationMainPaneController {
   private MediaPlayer mediaPlayer;
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
+  private boolean executors = true;
 
   public void initialize() {
 
@@ -108,7 +111,26 @@ public class StationMainPaneController {
     initializeTimeDate();
     initializeChart();
 
-    if (AlarmSettings.isAlarmActive) {}
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
+    Runnable runnable =
+        () -> {
+          while (executors) {
+            try {
+              Thread.sleep(1000);
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+
+            double wnd = Double.parseDouble(windSpeedLabel.getText());
+            if (AlarmSettings.isAlarmActive) {
+              if (wnd >= AlarmSettings.windSpeedAlarm) {
+                AlarmSettings.play();
+              } else AlarmSettings.stop();
+            }
+          }
+        };
+
+    executorService.execute(runnable);
 
     alarmButton.setOnAction(
         actionEvent -> {
@@ -120,7 +142,7 @@ public class StationMainPaneController {
             e.printStackTrace();
           }
           Scene scene = new Scene(root, 1000, 700);
-
+          executors = false;
           scene
               .getStylesheets()
               .add(getClass().getResource("/custom-font-styles.css").toExternalForm());
