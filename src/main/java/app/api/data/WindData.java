@@ -1,8 +1,8 @@
 package app.api.data;
 
 public class WindData {
-  private double speed;
-  private int deg;
+  private double speed = 0;
+  private int deg = 0;
 
   public double getSpeed() {
     return speed;

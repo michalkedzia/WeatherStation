@@ -48,6 +48,17 @@
     -fx-font-size: 20;
 }
 
+.text-white-large {
+    -fx-text-fill: white;
+    -fx-font-size: 40;
+}
+
+.city-temp-font{
+    -fx-font-family: "DSEG14 Classic Mini-Bold";
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+}
+
 .indor-font {
     -fx-font-family: "DSEG14 Classic Mini-Bold";
     -fx-font-size: 70;

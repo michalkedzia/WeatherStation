@@ -36,10 +36,10 @@ public class ApiCaller {
     }
   }
 
-  public int findCountry(String name) {
-    for (CityListData cityListDatum : cityListData) {
-      if (name.equalsIgnoreCase(cityListDatum.name)) {
-        return cityListDatum.id;
+  public int findCity(String name) {
+    for (CityListData cityListDatu : cityListData) {
+      if (name.equalsIgnoreCase(cityListDatu.name)) {
+        return cityListDatu.id;
       }
     }
 
@@ -71,9 +71,9 @@ public class ApiCaller {
           rainData = gson.fromJson(rootObject.get("rain").toString(), RainData.class);
         }
         WindData windData = gson.fromJson(rootObject.get("wind").toString(), WindData.class);
-        System.out.println(rootObject.get("rain"));
         //WeatherData weatherData = gson.fromJson(weather.get(0).toString(), WeatherData.class);
         WeatherData weatherData = gson.fromJson(main.toString(), WeatherData.class);
+        weatherData.setCityId(cityId);
         weatherData.setTemp(weatherData.getTemp() - Kelvin);
         weatherData.setRain(rainData);
         weatherData.setWind(windData);

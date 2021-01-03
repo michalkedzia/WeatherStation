@@ -1,12 +1,21 @@
 package app.api.data;
 
 public class WeatherData {
-  private String main;
-  private double temp;
-  private int pressure;
-  private int humidity;
+  private int cityId = -1;
+  private String main = "";
+  private double temp = 0;
+  private int pressure = 0;
+  private int humidity = 0;
   private WindData wind;
   private RainData rain;
+
+  public int getCityId() {
+    return cityId;
+  }
+
+  public void setCityId(int cityId) {
+    this.cityId = cityId;
+  }
 
   public String getMain() {
     return main;

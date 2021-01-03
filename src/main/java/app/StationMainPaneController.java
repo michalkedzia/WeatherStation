@@ -34,6 +34,8 @@ import java.util.Random;
 
 public class StationMainPaneController {
 
+  @FXML private Label settingsButton;
+
   @FXML private Label outdoorTempLabel;
 
   @FXML private Label outdoorHumidityLabel;
@@ -47,6 +49,12 @@ public class StationMainPaneController {
   @FXML private HBox midHBbox;
 
   @FXML private ImageView weatherIcon;
+
+  @FXML private ImageView cityWeatherIcon;
+
+  @FXML private Label cityLabel;
+
+  @FXML private Label cityTempLabel;
 
   @FXML private ImageView moonIcon;
 
@@ -68,6 +76,7 @@ public class StationMainPaneController {
   private ObservableList<XYChart.Series<String, Double>> list;
 
   WeatherData weatherData;
+  WeatherData weatherDataCity;
 
   public void initialize() {
 
@@ -112,7 +121,9 @@ public class StationMainPaneController {
       e.printStackTrace();
     }
 
-    weatherData = apiCaller.getWeatherData(apiCaller.findCountry("moscow"));
+    weatherData = apiCaller.getWeatherData(apiCaller.findCity("łódź"));
+    weatherDataCity = apiCaller.getWeatherData(apiCaller.findCity("łódź"));
+    cityLabel.setText("łódź".toUpperCase());
   }
 
   void changeIcon(ImageView imageView, String src) {
@@ -177,9 +188,10 @@ public class StationMainPaneController {
                         indoorTempLabel.setText(Integer.toString(20));
                         indoorHumidityLabel.setText(Integer.toString(30));
                         outdoorHumidityLabel.setText(Integer.toString(weatherData.getHumidity()));
-                        outdoorTempLabel.setText(Double.toString(weatherData.getTemp()));
+                        outdoorTempLabel.setText(Double.toString(Math.round((weatherData.getTemp()) * 10) / 10.0));
                         windSpeedLabel.setText(Double.toString(weatherData.getWind().getSpeed()));
                         rainFallAccLabel.setText(Double.toString(weatherData.getRain().getHour()));
+                        cityTempLabel.setText(Double.toString(Math.round((weatherDataCity.getTemp()) * 10) / 10.0));
 
                         XYChart.Series<String, Double> aSeries =
                             new XYChart.Series<String, Double>();
