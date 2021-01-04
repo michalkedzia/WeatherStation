@@ -416,7 +416,6 @@ public class StationMainPaneController {
                             Double.toString(
                                 Math.round((weatherData.getWind().getSpeed() + random) * 10)
                                     / 10.0));
-                        System.out.println(weatherData.getWind().getSpeed());
                         rainFallAccLabel.setText(Double.toString(weatherData.getRain().getHour()));
                         cityLabel.setText(SettingsData.getCityName());
                         cityTempLabel.setText(
