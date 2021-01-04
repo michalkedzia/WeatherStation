@@ -27,10 +27,11 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-
     Font.loadFont(getClass().getResource("/DSEG14ClassicMini-Bold.ttf").toExternalForm(), 10);
     AnchorPane root = FXMLLoader.load(getClass().getResource("/stationMainPane.fxml"));
     primaryStage.setTitle("WeatherStation");
+    SettingsData.init();
+
 
     Scene scene = new Scene(root, 1000, 700);
     scene.getStylesheets().add(getClass().getResource("/custom-font-styles.css").toExternalForm());

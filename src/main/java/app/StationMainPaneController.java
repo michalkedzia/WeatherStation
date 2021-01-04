@@ -11,18 +11,25 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
@@ -31,10 +38,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
 
-
 public class StationMainPaneController {
 
-  @FXML private Label settingsButton;
+  @FXML private Button settingsButton;
 
   @FXML private Label outdoorTempLabel;
 
@@ -75,8 +81,7 @@ public class StationMainPaneController {
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
 
-  WeatherData weatherData;
-  WeatherData weatherDataCity;
+  private WeatherData weatherData;
 
   public void initialize() {
 
@@ -122,13 +127,179 @@ public class StationMainPaneController {
     }
 
     weatherData = apiCaller.getWeatherData(apiCaller.findCity("łódź"));
-    weatherDataCity = apiCaller.getWeatherData(apiCaller.findCity("łódź"));
-    cityLabel.setText("łódź".toUpperCase());
+
+    cityLabel.setText(SettingsData.getCityName());
+
+    settingsButton.setOnAction(
+        actionEvent -> {
+          Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+          AnchorPane root = null;
+          try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/settingsPane.fxml"));
+            root = loader.load();
+            SettingsController settingsController = loader.getController();
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+
+          Scene scene = new Scene(root, 1000, 700);
+          scene
+              .getStylesheets()
+              .add(getClass().getResource("/custom-font-styles.css").toExternalForm());
+          stage.setScene(scene);
+          stage.show();
+        });
   }
 
   void changeIcon(ImageView imageView, String src) {
     Image image = new Image(getClass().getResource(src).toString());
     Platform.runLater(() -> imageView.setImage(image));
+  }
+
+  void updateIcons() {
+    switch (SettingsData.getWeatherDataCity().getDescription()) {
+      case "\"clear sky\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.SUN);
+        break;
+      case "\"shower rain\"":
+      case "\"heavy intensity rain\"":
+      case "\"very heavy rain\"":
+      case "\"extreme rain\"":
+      case "\"freezing rain\"":
+      case "\"heavy intensity shower rain\"":
+      case "\"ragged shower rain\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.MODERATE_RAIN);
+        break;
+      case "\"rain\"":
+      case "\"moderate rain\"":
+      case "\"light intensity shower rain\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.RAIN);
+        break;
+      case "\"light rain\"":
+      case "\"drizzle\"":
+      case "\"light intensity drizzle\"":
+      case "\"heavy intensity drizzle\"":
+      case "\"drizzle rain\"":
+      case "\"heavy intensity drizzle rain\"":
+      case "\"shower rain and drizzle\"":
+      case "\"heavy shower rain and drizzle\"":
+      case "\"shower drizzle\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.LIGHT_RAIN);
+        break;
+      case "\"thunderstorm\"":
+      case "\"thunderstorm with light rain\"":
+      case "\"thunderstorm with rain\"":
+      case "\"thunderstorm with heavy rain\"":
+      case "\"light thunderstorm\"":
+      case "\"heavy thunderstorm\"":
+      case "\"ragged thunderstorm\"":
+      case "\"thunderstorm with light drizzle\"":
+      case "\"thunderstorm with drizzle\"":
+      case "\"thunderstorm with heavy drizzle\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.STORM);
+        break;
+      case "\"snow\"":
+      case "\"heavy snow\"":
+      case "\"shower snow\"":
+      case "\"heavy shower snow\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.SNOW);
+        break;
+      case "\"light snow\"":
+      case "\"light shower snow\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.LIGHT_SNOW);
+        break;
+      case "\"mist\"":
+      case "\"haze\"":
+      case "\"smoke\"":
+      case "\"fog\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.HAZE);
+        break;
+      case "\"sleet\"":
+      case "\"light shower sleet\"":
+      case "\"shower sleet\"":
+      case "\"light rain and snow\"":
+      case "\"rain and snow\"":
+        changeIcon(cityWeatherIcon, WeatherIcons.SLEET);
+        break;
+      case "\"broken clouds\"":
+      case "\"scattered clouds\"":
+      case "\"few clouds\"":
+      case "\"overcast clouds\"":
+      default:
+        changeIcon(cityWeatherIcon, WeatherIcons.CLOUDS);
+    }
+
+    switch (weatherData.getDescription()) {
+      case "\"clear sky\"":
+        changeIcon(weatherIcon, WeatherIcons.SUN);
+        break;
+      case "\"shower rain\"":
+      case "\"heavy intensity rain\"":
+      case "\"very heavy rain\"":
+      case "\"extreme rain\"":
+      case "\"freezing rain\"":
+      case "\"heavy intensity shower rain\"":
+      case "\"ragged shower rain\"":
+        changeIcon(weatherIcon, WeatherIcons.MODERATE_RAIN);
+        break;
+      case "\"rain\"":
+      case "\"moderate rain\"":
+      case "\"light intensity shower rain\"":
+        changeIcon(weatherIcon, WeatherIcons.RAIN);
+        break;
+      case "\"light rain\"":
+      case "\"drizzle\"":
+      case "\"light intensity drizzle\"":
+      case "\"heavy intensity drizzle\"":
+      case "\"drizzle rain\"":
+      case "\"heavy intensity drizzle rain\"":
+      case "\"shower rain and drizzle\"":
+      case "\"heavy shower rain and drizzle\"":
+      case "\"shower drizzle\"":
+        changeIcon(weatherIcon, WeatherIcons.LIGHT_RAIN);
+        break;
+      case "\"thunderstorm\"":
+      case "\"thunderstorm with light rain\"":
+      case "\"thunderstorm with rain\"":
+      case "\"thunderstorm with heavy rain\"":
+      case "\"light thunderstorm\"":
+      case "\"heavy thunderstorm\"":
+      case "\"ragged thunderstorm\"":
+      case "\"thunderstorm with light drizzle\"":
+      case "\"thunderstorm with drizzle\"":
+      case "\"thunderstorm with heavy drizzle\"":
+        changeIcon(weatherIcon, WeatherIcons.STORM);
+        break;
+      case "\"snow\"":
+      case "\"heavy snow\"":
+      case "\"shower snow\"":
+      case "\"heavy shower snow\"":
+        changeIcon(weatherIcon, WeatherIcons.SNOW);
+        break;
+      case "\"light snow\"":
+      case "\"light shower snow\"":
+        changeIcon(weatherIcon, WeatherIcons.LIGHT_SNOW);
+        break;
+      case "\"mist\"":
+      case "\"haze\"":
+      case "\"smoke\"":
+      case "\"fog\"":
+        changeIcon(weatherIcon, WeatherIcons.HAZE);
+        break;
+      case "\"sleet\"":
+      case "\"light shower sleet\"":
+      case "\"shower sleet\"":
+      case "\"light rain and snow\"":
+      case "\"rain and snow\"":
+        changeIcon(weatherIcon, WeatherIcons.SLEET);
+        break;
+      case "\"broken clouds\"":
+      case "\"scattered clouds\"":
+      case "\"few clouds\"":
+      case "\"overcast clouds\"":
+      default:
+        changeIcon(cityWeatherIcon, WeatherIcons.CLOUDS);
+    }
   }
 
   void initializeChart() {
@@ -185,13 +356,19 @@ public class StationMainPaneController {
                         int rr = (int) random * 10;
                         random = random - 2 + random / 10;
 
+                        updateIcons();
                         indoorTempLabel.setText(Integer.toString(20));
                         indoorHumidityLabel.setText(Integer.toString(30));
                         outdoorHumidityLabel.setText(Integer.toString(weatherData.getHumidity()));
-                        outdoorTempLabel.setText(Double.toString(Math.round((weatherData.getTemp()) * 10) / 10.0));
+                        outdoorTempLabel.setText(
+                            Double.toString(Math.round((weatherData.getTemp()) * 10) / 10.0));
                         windSpeedLabel.setText(Double.toString(weatherData.getWind().getSpeed()));
                         rainFallAccLabel.setText(Double.toString(weatherData.getRain().getHour()));
-                        cityTempLabel.setText(Double.toString(Math.round((weatherDataCity.getTemp()) * 10) / 10.0));
+                        cityLabel.setText(SettingsData.getCityName());
+                        cityTempLabel.setText(
+                            Double.toString(
+                                Math.round((SettingsData.getWeatherDataCity().getTemp()) * 10)
+                                    / 10.0));
 
                         XYChart.Series<String, Double> aSeries =
                             new XYChart.Series<String, Double>();
@@ -210,5 +387,13 @@ public class StationMainPaneController {
             new KeyFrame(Duration.seconds(1)));
     clock.setCycleCount(Animation.INDEFINITE);
     clock.play();
+  }
+
+  public void setCityLabel(String cityLabel) {
+    this.cityLabel.setText(cityLabel.toUpperCase());
+  }
+
+  public String getCityLabel() {
+    return this.cityLabel.toString();
   }
 }

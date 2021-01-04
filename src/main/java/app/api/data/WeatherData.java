@@ -2,7 +2,7 @@ package app.api.data;
 
 public class WeatherData {
   private int cityId = -1;
-  private String main = "";
+  private String description = "";
   private double temp = 0;
   private int pressure = 0;
   private int humidity = 0;
@@ -17,12 +17,12 @@ public class WeatherData {
     this.cityId = cityId;
   }
 
-  public String getMain() {
-    return main;
+  public String getDescription() {
+    return description;
   }
 
-  public void setMain(String description) {
-    this.main = description;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public double getTemp() {

@@ -19,9 +19,9 @@
     <children>
         <HBox alignment="CENTER" layoutX="118.0" layoutY="390.0" prefHeight="50.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
-                <Button mnemonicParsing="false">
+                <Button fx:id="settingsButton" mnemonicParsing="false">
                <graphic>
-                  <ImageView fx:id="settingsButton" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@imgs/icons8_settings_512px.png" />
                      </image>

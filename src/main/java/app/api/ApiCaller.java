@@ -77,7 +77,7 @@ public class ApiCaller {
         weatherData.setTemp(weatherData.getTemp() - Kelvin);
         weatherData.setRain(rainData);
         weatherData.setWind(windData);
-        weatherData.setMain(weather.get(0).getAsJsonObject().get("main").toString());
+        weatherData.setDescription(weather.get(0).getAsJsonObject().get("description").toString());
 
         return weatherData;
       }
