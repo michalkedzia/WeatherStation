@@ -37,6 +37,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class StationMainPaneController {
 
@@ -78,10 +80,14 @@ public class StationMainPaneController {
 
   @FXML private Label dayWeekLabel;
 
+  @FXML
+  private Button alarmButton;
+
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
 
   private WeatherData weatherData;
+  private boolean executors = true;
 
   public void initialize() {
 
@@ -393,32 +399,33 @@ public class StationMainPaneController {
                         // test ->start
                         gauge.setValue(weatherData.getWind().getDeg());
                         Random rand = new Random();
-                        double random = rand.nextInt(5);
-                        int rr = (int) random * 10;
-                        random = random - 2 + random / 10;
+                        double random = rand.nextDouble();
+                        random = random - 0.5;
+//                        int rr = (int) random * 10;
+//                        random = random - 0.5 + random / 10;
 
                         updateIcons();
-                        indoorTempLabel.setText(Integer.toString(20));
-                        indoorHumidityLabel.setText(Integer.toString(30));
-                        outdoorHumidityLabel.setText(Integer.toString(weatherData.getHumidity()));
+                        indoorTempLabel.setText(Double.toString(20 + (random * 10) / 10.0) );
+                        indoorHumidityLabel.setText(Double.toString(30 + (random * 10) / 10.0));
+                        outdoorHumidityLabel.setText(Double.toString(weatherData.getHumidity()));
                         outdoorTempLabel.setText(
-                            Double.toString(Math.round((weatherData.getTemp()) * 10) / 10.0));
-                        windSpeedLabel.setText(Double.toString(weatherData.getWind().getSpeed()));
-                        rainFallAccLabel.setText(Double.toString(weatherData.getRain().getHour()));
+                            Double.toString(Math.round((weatherData.getTemp() + (random * 10) / 10.0 ) * 10) / 10.0));
+                        windSpeedLabel.setText(Double.toString(weatherData.getWind().getSpeed() + (random * 10) / 10.0));
+                        rainFallAccLabel.setText(Double.toString(weatherData.getRain().getHour() ));
                         cityLabel.setText(SettingsData.getCityName());
                         cityTempLabel.setText(
                             Double.toString(
-                                Math.round((SettingsData.getWeatherDataCity().getTemp()) * 10)
+                                Math.round((SettingsData.getWeatherDataCity().getTemp() + (random * 10) / 10.0) * 10)
                                     / 10.0));
 
                         XYChart.Series<String, Double> aSeries =
                             new XYChart.Series<String, Double>();
                         aSeries.getData().add(new XYChart.Data("Now", weatherData.getPressure()));
-                        aSeries.getData().add(new XYChart.Data("+1 Hour", 1274 + rr));
-                        aSeries.getData().add(new XYChart.Data("+2 Hour", 1151 + rr));
-                        aSeries.getData().add(new XYChart.Data("+3 Hour", 1100 + rr));
-                        aSeries.getData().add(new XYChart.Data("+4 Hour", 1300 + rr));
-                        aSeries.getData().add(new XYChart.Data("+5 Hour", 1000 + rr));
+                        aSeries.getData().add(new XYChart.Data("+1 Hour", 1274 + (random * 10) / 10.0));
+                        aSeries.getData().add(new XYChart.Data("+2 Hour", 1151 + (random * 10) / 10.0));
+                        aSeries.getData().add(new XYChart.Data("+3 Hour", 1100 + (random * 10) / 10.0));
+                        aSeries.getData().add(new XYChart.Data("+4 Hour", 1300 +(random * 10) / 10.0));
+                        aSeries.getData().add(new XYChart.Data("+5 Hour", 1000 + (random * 10) / 10.0));
                         list.clear();
                         list.add(aSeries);
                         // koniec
