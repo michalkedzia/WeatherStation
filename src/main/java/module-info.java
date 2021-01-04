@@ -5,7 +5,7 @@ module WeatherStation {
   requires javafx.base;
   requires javafx.media;
   requires com.google.gson;
-  requires Medusa;
+  requires eu.hansolo.medusa;
 
   opens app;
 }
