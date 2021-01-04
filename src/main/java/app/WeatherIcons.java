@@ -16,6 +16,8 @@ public class WeatherIcons {
   public static final String SUN = "/imgs/weather/icons8_sun_80px.png";
   public static final String TORRENTIAL_RAIN = "/imgs/weather/icons8_torrential_rain_160px.png";
   public static final String WINDY_WEATHER = "/imgs/weather/icons8_windy_weather_160px_1.png";
+  public static final String CLOUDS = "/imgs/weather/clouds_120px.png";
+  public static final String HAZE = "/imgs/weather/haze_120px.png";
 
   public static final String CERSCENT_MOON = "/imgs/moon/icons8_crescent_moon_96px.png";
   public static final String FIRST_QUARTER_MOON = "/imgs/moon/icons8_first_quarter_moon_96px.png";

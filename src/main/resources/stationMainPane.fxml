@@ -19,7 +19,7 @@
     <children>
         <HBox alignment="CENTER" layoutX="118.0" layoutY="390.0" prefHeight="50.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
-                <Button mnemonicParsing="false">
+                <Button fx:id="settingsButton" mnemonicParsing="false">
                <graphic>
                   <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -159,6 +159,44 @@
                         </VBox>
                      </children>
                   </HBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label styleClass="text-white" text="City Temp" />
+                        <ImageView fx:id="cityWeatherIcon" fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@imgs/weather/icons8_sun_80px.png" />
+                           </image>
+                        </ImageView>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <Label fx:id="cityTempLabel" styleClass="city-temp-font" text="26.6" />
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <Label styleClass="city-temp-font" text="°C">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fitHeight="33.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@imgs/icons8_thermometer_64px_white.png" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="cityLabel" alignment="TOP_LEFT" styleClass="text-white-large" text="City">
+                                 <font>
+                                    <Font size="27.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
                </children></VBox>
                 <SplitPane maxWidth="1.0" orientation="VERTICAL" prefHeight="570.0">
                     <HBox.margin>

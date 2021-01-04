@@ -1,5 +1,6 @@
 package app;
 
+import app.api.ApiCaller;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import eu.hansolo.medusa.*;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +27,11 @@ public class Main extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
-
     Font.loadFont(getClass().getResource("/DSEG14ClassicMini-Bold.ttf").toExternalForm(), 10);
     AnchorPane root = FXMLLoader.load(getClass().getResource("/stationMainPane.fxml"));
     primaryStage.setTitle("WeatherStation");
+    SettingsData.init();
+
 
     Scene scene = new Scene(root, 1000, 700);
     scene.getStylesheets().add(getClass().getResource("/custom-font-styles.css").toExternalForm());
