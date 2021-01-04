@@ -26,9 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -37,6 +35,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class StationMainPaneController {
 
@@ -78,10 +79,13 @@ public class StationMainPaneController {
 
   @FXML private Label dayWeekLabel;
 
+  @FXML private Button alarmButton;
+
   private Gauge gauge;
   private ObservableList<XYChart.Series<String, Double>> list;
 
   private WeatherData weatherData;
+  private boolean executors = true;
 
   public void initialize() {
 
@@ -143,6 +147,45 @@ public class StationMainPaneController {
           }
 
           Scene scene = new Scene(root, 1000, 700);
+          scene
+              .getStylesheets()
+              .add(getClass().getResource("/custom-font-styles.css").toExternalForm());
+          stage.setScene(scene);
+          stage.show();
+        });
+
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
+    Runnable runnable =
+        () -> {
+          while (executors) {
+            try {
+              Thread.sleep(1000);
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
+
+            double wnd = Double.parseDouble(windSpeedLabel.getText());
+            if (AlarmSettings.isAlarmActive) {
+              if (wnd >= AlarmSettings.windSpeedAlarm) {
+                AlarmSettings.play();
+              } else AlarmSettings.stop();
+            }
+          }
+        };
+
+    executorService.execute(runnable);
+
+    alarmButton.setOnAction(
+        actionEvent -> {
+          Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+          AnchorPane root = null;
+          try {
+            root = FXMLLoader.load(getClass().getResource("/alarmPane.fxml"));
+          } catch (IOException e) {
+            e.printStackTrace();
+          }
+          Scene scene = new Scene(root, 1000, 700);
+          executors = false;
           scene
               .getStylesheets()
               .add(getClass().getResource("/custom-font-styles.css").toExternalForm());
@@ -335,6 +378,7 @@ public class StationMainPaneController {
             .format(calendar.getTime().getTime())
             .toUpperCase());
 
+    AtomicInteger pressureCounter = new AtomicInteger();
     Timeline clock =
         new Timeline(
             new KeyFrame(
@@ -350,38 +394,47 @@ public class StationMainPaneController {
                         secondsLabel.setText(s);
 
                         // test ->start
-                        gauge.setValue(weatherData.getWind().getDeg());
                         Random rand = new Random();
-                        double random = rand.nextInt(5);
-                        int rr = (int) random * 10;
-                        random = random - 2 + random / 10;
+                        double random = rand.nextDouble();
+                        random = random - 0.5;
+
+                        gauge.setValue(weatherData.getWind().getDeg() + (rand.nextInt(6) - 3));
+
+                        //                        int rr = (int) random * 10;
+                        //                        random = random - 0.5 + random / 10;
 
                         updateIcons();
-                        indoorTempLabel.setText(Integer.toString(20));
-                        indoorHumidityLabel.setText(Integer.toString(30));
-                        outdoorHumidityLabel.setText(Integer.toString(weatherData.getHumidity()));
+                        indoorTempLabel.setText(
+                            Double.toString(Math.round((20 + random) * 10) / 10.0));
+                        indoorHumidityLabel.setText(
+                            Double.toString(Math.round((30 + random) * 10) / 10.0));
+                        outdoorHumidityLabel.setText(Double.toString(weatherData.getHumidity()));
                         outdoorTempLabel.setText(
-                            Double.toString(Math.round((weatherData.getTemp()) * 10) / 10.0));
-                        windSpeedLabel.setText(Double.toString(weatherData.getWind().getSpeed()));
+                            Double.toString(
+                                Math.round((weatherData.getTemp() + random) * 10) / 10.0));
+                        windSpeedLabel.setText(
+                            Double.toString(
+                                Math.round((weatherData.getWind().getSpeed() + random) * 10)
+                                    / 10.0));
                         rainFallAccLabel.setText(Double.toString(weatherData.getRain().getHour()));
                         cityLabel.setText(SettingsData.getCityName());
                         cityTempLabel.setText(
-                            Double.toString(
-                                Math.round((SettingsData.getWeatherDataCity().getTemp()) * 10)
-                                    / 10.0));
+                            Double.toString(Math.round(SettingsData.getWeatherDataCity().getTemp() * 10) / 10.0));
 
-                        XYChart.Series<String, Double> aSeries =
-                            new XYChart.Series<String, Double>();
-                        aSeries.getData().add(new XYChart.Data("Now", weatherData.getPressure()));
-                        aSeries.getData().add(new XYChart.Data("+1 Hour", 1274 + rr));
-                        aSeries.getData().add(new XYChart.Data("+2 Hour", 1151 + rr));
-                        aSeries.getData().add(new XYChart.Data("+3 Hour", 1100 + rr));
-                        aSeries.getData().add(new XYChart.Data("+4 Hour", 1300 + rr));
-                        aSeries.getData().add(new XYChart.Data("+5 Hour", 1000 + rr));
-                        list.clear();
-                        list.add(aSeries);
-                        // koniec
-
+                        if(pressureCounter.get() == 5){
+                          XYChart.Series<String, Double> aSeries =
+                              new XYChart.Series<String, Double>();
+                          aSeries.getData().add(new XYChart.Data("Now", weatherData.getPressure()));
+                          aSeries.getData().add(new XYChart.Data("+1 Hour", 1274 + random));
+                          aSeries.getData().add(new XYChart.Data("+2 Hour", 1151 + random));
+                          aSeries.getData().add(new XYChart.Data("+3 Hour", 1100 + random));
+                          aSeries.getData().add(new XYChart.Data("+4 Hour", 1300 + random));
+                          aSeries.getData().add(new XYChart.Data("+5 Hour", 1000 + random));
+                          list.clear();
+                          list.add(aSeries);
+                          // koniec
+                        }
+                        pressureCounter.set((pressureCounter.get() + 1) % 6);
                       });
                 }),
             new KeyFrame(Duration.seconds(1)));

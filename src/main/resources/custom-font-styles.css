@@ -39,6 +39,22 @@
     -fx-background-color: linear-gradient(#949fa4, #6a7579);
 }
 
+.btn {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-min-width: 60px;
+    -fx-min-height: 30px;
+    -fx-max-width: 30px;
+    -fx-max-height: 30px;
+    -fx-background-radius: 0em;
+    -fx-border-radius: 0em;
+}
+
+.btn:hover {
+    -fx-background-color: linear-gradient(#949fa4, #6a7579);
+}
+
 .text-yellow {
     -fx-text-fill: #ffff00;
 }
