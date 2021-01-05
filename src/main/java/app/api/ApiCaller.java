@@ -24,7 +24,7 @@ public class ApiCaller {
     JsonReader jsonReader =
         new JsonReader(
             new FileReader(
-                "C:\\Users\\mrmro\\Desktop\\java\\KCK\\final\\WeatherStation\\src\\main\\resources\\city.list.json"));
+                "src/main/resources/city.list.json"));
     JsonArray entries = (JsonArray) new JsonParser().parse(jsonReader);
 
     cityListData = new ArrayList<>();
