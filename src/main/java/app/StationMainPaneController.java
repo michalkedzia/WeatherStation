@@ -407,7 +407,7 @@ public class StationMainPaneController {
                         indoorTempLabel.setText(
                             Double.toString(Math.round((20 + random) * 10) / 10.0));
                         indoorHumidityLabel.setText(
-                            Double.toString(Math.round((30 + random) * 10) / 10.0));
+                            Double.toString(Math.round((80 + random) * 10) / 10.0));
                         outdoorHumidityLabel.setText(Double.toString(weatherData.getHumidity()));
                         outdoorTempLabel.setText(
                             Double.toString(

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- This module was also published with a richer model, Gradle metadata,  -->
+  <!-- which should be used instead. Do not delete the following line which  -->
+  <!-- is to indicate to Gradle or any Gradle module metadata file consumer  -->
+  <!-- that they should prefer consuming it instead. -->
+  <!-- do_not_remove: published-with-gradle-metadata -->
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>eu.hansolo</groupId>
+  <artifactId>Medusa</artifactId>
+  <version>11.5</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-base</artifactId>
+      <version>12.0.1</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-controls</artifactId>
+      <version>12.0.1</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>12.0.1</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+  <name>Medusa</name>
+  <url>https://github.com/HanSolo/Medusa/wiki</url>
+  <inceptionYear>2016</inceptionYear>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <scm>
+    <url>scm:git@github.com:HanSolo/Medusa.git</url>
+    <connection>scm:git@github.com:HanSolo/Medusa.git</connection>
+    <developerConnection>scm:git@github.com:HanSolo/Medusa.git</developerConnection>
+  </scm>
+  <developers>
+    <developer>
+      <id>HanSolo</id>
+      <name>Gerrit Grunwald</name>
+    </developer>
+  </developers>
+  <description>Medusa is a JavaFX library containing gauges and clocks</description>
+</project>
